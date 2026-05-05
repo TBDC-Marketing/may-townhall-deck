@@ -4,7 +4,9 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches:
+      - main
+      - devin/1778012447-may-townhall-deck
   workflow_dispatch:
 
 permissions:
