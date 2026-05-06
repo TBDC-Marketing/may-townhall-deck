@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   Coffee,
   Compass,
+  Dot,
   Eye,
   Flag,
   Globe2,
@@ -26,6 +27,11 @@ import {
   X
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+
+import brandRefresh01 from "./assets/brand-refresh/brand-refresh-01.webp";
+import brandRefresh02 from "./assets/brand-refresh/brand-refresh-02.webp";
+import brandRefresh03 from "./assets/brand-refresh/brand-refresh-03.webp";
+import brandRefresh04 from "./assets/brand-refresh/brand-refresh-04.webp";
 
 const COLORS = {
   navy: "#0A1628",
@@ -581,6 +587,168 @@ function LogoGrid() {
   );
 }
 
+function VisualPanel({
+  src,
+  alt,
+  border = true
+}: {
+  src: string;
+  alt: string;
+  border?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        borderRadius: 22,
+        overflow: "hidden",
+        border: border ? "1px solid rgba(255,255,255,0.14)" : "none",
+        boxShadow: "0 24px 80px rgba(10,22,40,0.22)",
+        background: "#fff"
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        style={{
+          display: "block",
+          width: "100%",
+          height: "auto"
+        }}
+      />
+    </div>
+  );
+}
+
+function BrandReasonSlide() {
+  return (
+    <SlideFrame theme="navy" align="left" maxWidth={1400}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "0.88fr 1.12fr",
+          gap: "clamp(34px, 4.5vw, 70px)",
+          alignItems: "center"
+        }}
+      >
+        <div>
+          <Eyebrow>Brand Refresh</Eyebrow>
+          <Title theme="navy">
+            Marketing is both <Accent>art and science</Accent>
+          </Title>
+          <Body theme="navy">
+            Brand design shapes first impressions in milliseconds. For founders entering North America, clarity, discipline, and confidence matter before a conversation even starts.
+          </Body>
+          <div style={{ marginTop: 34 }}>
+            <BulletList
+              theme="navy"
+              items={[
+                { text: "Brand appeal supports revenue and growth" },
+                { text: "Design signals intention, values, and positioning" },
+                { text: "Minimalism communicates confidence" }
+              ]}
+            />
+          </div>
+        </div>
+        <VisualPanel src={brandRefresh01} alt="Brand design art and science slide from the TBDC brand refresh PDF" />
+      </div>
+    </SlideFrame>
+  );
+}
+
+function EcosystemBrandsSlide() {
+  return (
+    <SlideFrame theme="warmWhite" align="left" maxWidth={1400}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "0.82fr 1.18fr",
+          gap: "clamp(34px, 4.5vw, 70px)",
+          alignItems: "center"
+        }}
+      >
+        <div>
+          <Eyebrow>Frame of Reference</Eyebrow>
+          <Title theme="warmWhite">
+            Winning ecosystem brands use <Accent>clarity</Accent>
+          </Title>
+          <Body theme="warmWhite">
+            Sharp lines, focused palettes, and function-first design are the common language of trusted tech brands.
+          </Body>
+          <div style={{ marginTop: 34 }}>
+            <CardGrid
+              theme="warmWhite"
+              columns={1}
+              items={[
+                { icon: Target, title: "Digital-first impression", description: "Most brands are encountered on screens before anywhere else." },
+                { icon: Dot, title: "Typography-led confidence", description: "Clear type and restraint make the message feel disciplined." }
+              ]}
+            />
+          </div>
+        </div>
+        <VisualPanel src={brandRefresh02} alt="Examples of winning tech and ecosystem brand logos" border={false} />
+      </div>
+    </SlideFrame>
+  );
+}
+
+function LogoEvolutionSlide() {
+  return (
+    <SlideFrame theme="navy" align="left" maxWidth={1400}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "0.78fr 1.22fr",
+          gap: "clamp(34px, 4.5vw, 70px)",
+          alignItems: "center"
+        }}
+      >
+        <div>
+          <Eyebrow>Logo Evolution</Eyebrow>
+          <Title theme="navy">
+            Logos evolve as companies <Accent>mature</Accent>
+          </Title>
+          <Body theme="navy">
+            The strongest brands simplify over time. They move toward marks that are sharper, more flexible, and easier to recognize in digital contexts.
+          </Body>
+        </div>
+        <VisualPanel src={brandRefresh03} alt="Logo evolution examples including Techstars, Uber, Intel, Medium, and Logitech" />
+      </div>
+    </SlideFrame>
+  );
+}
+
+function TbdcBrandYearsSlide() {
+  return (
+    <SlideFrame theme="sand" align="left" maxWidth={1400}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "0.82fr 1.18fr",
+          gap: "clamp(34px, 4.5vw, 70px)",
+          alignItems: "center"
+        }}
+      >
+        <div>
+          <Eyebrow>TBDC Brand</Eyebrow>
+          <Title theme="sand">
+            36 years of trust, refreshed for <Accent>what comes next</Accent>
+          </Title>
+          <BulletList
+            theme="sand"
+            items={[
+              { text: "A reputed and trusted brand for founders" },
+              { text: "Circular mark becomes a growth wheel" },
+              { text: "Acceleration through access and possibility" },
+              { text: "A brand updated for the current market and our ICP" }
+            ]}
+          />
+        </div>
+        <VisualPanel src={brandRefresh04} alt="TBDC brand history slide showing 36 years, circular marks, and archival material" />
+      </div>
+    </SlideFrame>
+  );
+}
+
 function PollSlide({
   question,
   options,
@@ -1092,6 +1260,30 @@ const slides: SlideDefinition[] = [
         subtitle="The new brand and website reflect how TBDC operates today. Hand off to Dharti Chatterjee."
       />
     )
+  },
+  {
+    section: "Rebrand",
+    title: "Brand Refresh: Art and Science",
+    theme: "navy",
+    render: () => <BrandReasonSlide />
+  },
+  {
+    section: "Rebrand",
+    title: "Ecosystem’s Winning Brands",
+    theme: "warmWhite",
+    render: () => <EcosystemBrandsSlide />
+  },
+  {
+    section: "Rebrand",
+    title: "Logos Evolve Over Time",
+    theme: "navy",
+    render: () => <LogoEvolutionSlide />
+  },
+  {
+    section: "Rebrand",
+    title: "TBDC Brand: 36 Years",
+    theme: "sand",
+    render: () => <TbdcBrandYearsSlide />
   },
   {
     section: "Rebrand",
