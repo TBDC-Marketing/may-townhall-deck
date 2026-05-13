@@ -31,6 +31,13 @@ import brandRefresh01 from "./assets/brand-refresh/brand-refresh-01.webp";
 import brandRefresh02 from "./assets/brand-refresh/brand-refresh-02.webp";
 import brandRefresh03 from "./assets/brand-refresh/brand-refresh-03.webp";
 import brandRefresh04 from "./assets/brand-refresh/brand-refresh-04.webp";
+import astrikosLogo from "./assets/cohort/astrikos.png";
+import blunavLogo from "./assets/cohort/blunav.png";
+import sensoneoLogo from "./assets/cohort/sensoneo.png";
+import skypuzzlerLogo from "./assets/cohort/skypuzzler.png";
+import trideLogo from "./assets/cohort/tride.png";
+import tvastaLogo from "./assets/cohort/tvasta.png";
+import vcgaiLogo from "./assets/cohort/vcgai.png";
 
 const COLORS = {
   navy: "#0A1628",
@@ -75,13 +82,13 @@ interface CohortCompany {
 }
 
 const COHORT_COMPANIES: CohortCompany[] = [
-  { name: "YouCube AI", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/youcubeai.webp" },
-  { name: "Truehouse AI", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/truehouseai.webp" },
-  { name: "Match!AI", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/matchai.webp" },
-  { name: "Passu", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/passu.webp" },
-  { name: "KeyTa", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/keyta.webp" },
-  { name: "Pitch Jams", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/pitch-jams.webp" },
-  { name: "trndzy", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/trndzy.webp" }
+  { name: "Astrikos", logoUrl: astrikosLogo },
+  { name: "Tvasta", logoUrl: tvastaLogo },
+  { name: "BluNav", logoUrl: blunavLogo },
+  { name: "Tride", logoUrl: trideLogo },
+  { name: "VCG.AI", logoUrl: vcgaiLogo },
+  { name: "Skypuzzler", logoUrl: skypuzzlerLogo },
+  { name: "Sensoneo", logoUrl: sensoneoLogo }
 ];
 
 function themeStyles(theme: Theme) {
