@@ -8,7 +8,6 @@ import {
   Dot,
   Eye,
   Flag,
-  Globe2,
   Handshake,
   Home,
   ListChecks,
@@ -69,6 +68,21 @@ interface CardItem {
   title: string;
   description: string;
 }
+
+interface CohortCompany {
+  name: string;
+  logoUrl: string;
+}
+
+const COHORT_COMPANIES: CohortCompany[] = [
+  { name: "YouCube AI", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/youcubeai.webp" },
+  { name: "Truehouse AI", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/truehouseai.webp" },
+  { name: "Match!AI", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/matchai.webp" },
+  { name: "Passu", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/passu.webp" },
+  { name: "KeyTa", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/keyta.webp" },
+  { name: "Pitch Jams", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/pitch-jams.webp" },
+  { name: "trndzy", logoUrl: "https://tbdc.com/wp-content/uploads/2026/04/trndzy.webp" }
+];
 
 function themeStyles(theme: Theme) {
   const isDark = theme === "navy";
@@ -542,7 +556,6 @@ function Timeline({ items, theme }: { items: Bullet[]; theme: Theme }) {
 }
 
 function LogoGrid() {
-  const companies = ["Company 01", "Company 02", "Company 03", "Company 04", "Company 05", "Company 06", "Company 07"];
   return (
     <div
       style={{
@@ -551,14 +564,14 @@ function LogoGrid() {
         gap: 18
       }}
     >
-      {companies.map((company, index) => (
+      {COHORT_COMPANIES.map((company, index) => (
         <div
-          key={company}
+          key={company.name}
           style={{
             minHeight: index === 6 ? 150 : 132,
             gridColumn: index === 6 ? "2 / span 2" : "auto",
             background: "#fff",
-            border: "1px dashed rgba(0,168,142,0.55)",
+            border: "1px solid rgba(203,213,225,0.55)",
             borderRadius: 20,
             display: "flex",
             flexDirection: "column",
@@ -568,7 +581,18 @@ function LogoGrid() {
             boxShadow: "0 2px 18px rgba(10,22,40,0.06)"
           }}
         >
-          <Globe2 size={32} color={COLORS.teal} />
+          <img
+            src={company.logoUrl}
+            alt={`${company.name} logo`}
+            style={{
+              maxWidth: "78%",
+              maxHeight: 58,
+              objectFit: "contain"
+            }}
+            onError={(event) => {
+              event.currentTarget.style.display = "none";
+            }}
+          />
           <span
             style={{
               fontFamily: FONTS.mono,
@@ -579,7 +603,7 @@ function LogoGrid() {
               letterSpacing: "0.08em"
             }}
           >
-            Insert logo
+            {company.name}
           </span>
         </div>
       ))}
@@ -753,17 +777,19 @@ function PollSlide({
   question,
   options,
   answer,
+  eyebrow = "Inside TBDC Poll",
   theme = "sand"
 }: {
   question: string;
   options: string[];
   answer: string;
+  eyebrow?: string;
   theme?: Theme;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
   return (
     <SlideFrame theme={theme} align="left" maxWidth={1280}>
-      <Eyebrow>Inside TBDC Poll</Eyebrow>
+      <Eyebrow>{eyebrow}</Eyebrow>
       <Title theme={theme}>
         <Accent>Question:</Accent> {question}
       </Title>
@@ -995,6 +1021,18 @@ const slides: SlideDefinition[] = [
     )
   },
   {
+    section: "Purpose and North Star",
+    title: "Why We’re Here",
+    theme: "navy",
+    render: () => (
+      <SectionSlide
+        section="Purpose and North Star"
+        title={<>Why We’re <Accent>Here</Accent></>}
+        subtitle="Align on how we operate today, reinforce outcomes over activity, and prepare for Sprint Week."
+      />
+    )
+  },
+  {
     section: "Opening",
     title: "Workiversaries and Recognition",
     theme: "sand",
@@ -1015,18 +1053,6 @@ const slides: SlideDefinition[] = [
           />
         </div>
       </SlideFrame>
-    )
-  },
-  {
-    section: "Purpose and North Star",
-    title: "Why We’re Here",
-    theme: "navy",
-    render: () => (
-      <SectionSlide
-        section="Purpose and North Star"
-        title={<>Why We’re <Accent>Here</Accent></>}
-        subtitle="Align on how we operate today, reinforce outcomes over activity, and prepare for Sprint Week."
-      />
     )
   },
   {
@@ -1071,7 +1097,12 @@ const slides: SlideDefinition[] = [
     title: "How We Track and What’s Coming",
     theme: "warmWhite",
     render: () => (
-      <SplitSlide theme="warmWhite" eyebrow="Tracking" title={<>Movement, risk, and <Accent>outcomes</Accent></>}>
+      <SplitSlide
+        theme="warmWhite"
+        eyebrow="Tracking"
+        title={<>This is our <Accent>North Star</Accent> and here’s our system to reinforce it</>}
+        body="Movement, risk, and outcomes."
+      >
         <Timeline
           theme="warmWhite"
           items={[
@@ -1211,7 +1242,7 @@ const slides: SlideDefinition[] = [
           theme="warmWhite"
           columns={1}
           items={[
-            { icon: MessageCircle, title: "WhatsApp is the primary channel", description: "Use it for quick issue resolution, live coordination, and connecting with Yasseen when needed." }
+            { icon: MessageCircle, title: "WhatsApp is the primary channel", description: "Use it for quick issue resolution, live coordination, and connecting with Yasseen at 289-894-3431 when needed." }
           ]}
         />
       </SplitSlide>
@@ -1335,49 +1366,38 @@ const slides: SlideDefinition[] = [
   },
   {
     section: "Inside TBDC",
-    title: "Poll: Why do companies come to Sprint Week?",
+    title: "Poll: Was Sprint Week successful?",
     theme: "sand",
     render: () => (
       <PollSlide
-        question="Why do companies come to Sprint Week?"
-        options={[
-          "Networking and exposure",
-          "Learning and workshops",
-          "To validate and accelerate North American market entry",
-          "All of the above"
-        ]}
-        answer="All of the above"
+        question="If founders say they loved Sprint Week, but nothing changes in their business afterward, was Sprint Week successful?"
+        options={["Yes", "No"]}
+        answer="No"
       />
     )
   },
   {
     section: "Inside TBDC",
-    title: "Poll: What should a company leave Sprint Week with?",
+    title: "Poll: Can Programming do it alone?",
     theme: "warmWhite",
     render: () => (
       <PollSlide
-        question="What should a company leave Sprint Week with?"
-        options={[
-          "A strong network",
-          "A better understanding of their market",
-          "Clear next steps and momentum",
-          "Potential follow-on work",
-          "All of the above"
-        ]}
-        answer="All of the above"
+        question="Can Programming alone make Sprint Week successful?"
+        options={["Yes", "No"]}
+        answer="No"
         theme="warmWhite"
       />
     )
   },
   {
     section: "Inside TBDC",
-    title: "Poll: Who is responsible for Sprint Week success?",
+    title: "Poll: Did we deliver full value?",
     theme: "sand",
     render: () => (
       <PollSlide
-        question="Who is responsible for Sprint Week success?"
-        options={["Programming", "Sales", "Marketing", "The full organization"]}
-        answer="The full organization"
+        question="If we create strong meetings during Sprint Week but never follow up afterward, have we delivered full value?"
+        options={["Yes", "No"]}
+        answer="No"
       />
     )
   },
@@ -1417,6 +1437,25 @@ const slides: SlideDefinition[] = [
           ]}
         />
       </SplitSlide>
+    )
+  },
+  {
+    section: "AI and What’s Next",
+    title: "Poll: AI workflow time saver",
+    theme: "warmWhite",
+    render: () => (
+      <PollSlide
+        eyebrow="AI Poll"
+        question="What AI enabled workflow or tool would save you the most time today?"
+        options={[
+          "Research support",
+          "First-draft writing",
+          "Meeting summaries and action items",
+          "Presentation and content creation"
+        ]}
+        answer="Meeting summaries and action items"
+        theme="warmWhite"
+      />
     )
   },
   {
