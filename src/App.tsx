@@ -1760,7 +1760,7 @@ export default function App() {
         slides={slides}
       />
 
-      {current.render()}
+      <div key={currentSlide}>{current.render()}</div>
     </div>
   );
 }
