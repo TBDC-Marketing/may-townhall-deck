@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import {
   CheckCircle2,
+  CircleAlert,
   ClipboardCheck,
   Coffee,
   Compass,
-  Dot,
   Eye,
   Flag,
   Handshake,
@@ -17,6 +17,7 @@ import {
   MessageCircle,
   Minimize2,
   Network,
+  ShieldCheck,
   Shirt,
   Sparkles,
   Target,
@@ -27,9 +28,6 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-import brandRefresh01 from "./assets/brand-refresh/brand-refresh-01.webp";
-import brandRefresh02 from "./assets/brand-refresh/brand-refresh-02.webp";
-import brandRefresh03 from "./assets/brand-refresh/brand-refresh-03.webp";
 import brandRefresh04 from "./assets/brand-refresh/brand-refresh-04.webp";
 import astrikosLogo from "./assets/cohort/astrikos.png";
 import blunavLogo from "./assets/cohort/blunav.png";
@@ -38,6 +36,11 @@ import skypuzzlerLogo from "./assets/cohort/skypuzzler.png";
 import trideLogo from "./assets/cohort/tride.png";
 import tvastaLogo from "./assets/cohort/tvasta.png";
 import vcgaiLogo from "./assets/cohort/vcgai.png";
+import ajHeadshot from "./assets/team/aj.jpeg";
+import hammadHeadshot from "./assets/team/hammad.webp";
+import olgaHeadshot from "./assets/team/olga.jpeg";
+import rahimHeadshot from "./assets/team/rahim.png";
+import rajshreeHeadshot from "./assets/team/rajshree.jpeg";
 
 const COLORS = {
   navy: "#0A1628",
@@ -81,6 +84,12 @@ interface CohortCompany {
   logoUrl: string;
 }
 
+interface Person {
+  name: string;
+  label: string;
+  image: string;
+}
+
 const COHORT_COMPANIES: CohortCompany[] = [
   { name: "Astrikos", logoUrl: astrikosLogo },
   { name: "Tvasta", logoUrl: tvastaLogo },
@@ -89,6 +98,17 @@ const COHORT_COMPANIES: CohortCompany[] = [
   { name: "VCG.AI", logoUrl: vcgaiLogo },
   { name: "Skypuzzler", logoUrl: skypuzzlerLogo },
   { name: "Sensoneo", logoUrl: sensoneoLogo }
+];
+
+const WORKIVERSARIES: Person[] = [
+  { name: "AJ Sivam", label: "5 years", image: ajHeadshot },
+  { name: "Hammad Hassan", label: "3 years", image: hammadHeadshot },
+  { name: "Olga Senko", label: "1 year", image: olgaHeadshot }
+];
+
+const NEW_TEAM_MEMBERS: Person[] = [
+  { name: "Rahim Kanji", label: "New team member", image: rahimHeadshot },
+  { name: "Rajshree Chatterjee", label: "New team member", image: rajshreeHeadshot }
 ];
 
 function themeStyles(theme: Theme) {
@@ -618,6 +638,117 @@ function LogoGrid() {
   );
 }
 
+function PersonCard({ person, theme }: { person: Person; theme: Theme }) {
+  const t = themeStyles(theme);
+  return (
+    <div
+      style={{
+        background: t.card,
+        border: `1px solid ${t.border}`,
+        borderRadius: 22,
+        padding: 18,
+        display: "grid",
+        gridTemplateColumns: "96px 1fr",
+        gap: 18,
+        alignItems: "center",
+        textAlign: "left",
+        boxShadow: theme === "navy" ? "none" : "0 2px 18px rgba(10,22,40,0.06)"
+      }}
+    >
+      <img
+        src={person.image}
+        alt={person.name}
+        style={{
+          width: 96,
+          height: 96,
+          borderRadius: "50%",
+          objectFit: "cover",
+          border: `3px solid ${COLORS.teal}`
+        }}
+      />
+      <div>
+        <h3
+          style={{
+            fontFamily: FONTS.heading,
+            fontSize: "clamp(1.15rem, 1.6vw, 1.45rem)",
+            color: t.heading,
+            margin: "0 0 6px"
+          }}
+        >
+          {person.name}
+        </h3>
+        <p
+          style={{
+            fontFamily: FONTS.mono,
+            fontSize: 13,
+            fontWeight: 700,
+            color: COLORS.teal,
+            margin: 0,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em"
+          }}
+        >
+          {person.label}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function RecognitionSlide() {
+  return (
+    <SlideFrame theme="sand" align="left" maxWidth={1380}>
+      <Eyebrow>Recognition</Eyebrow>
+      <Title theme="sand">
+        Workiversaries &amp; <Accent>new team members</Accent>
+      </Title>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "clamp(32px, 4vw, 56px)",
+          alignItems: "start"
+        }}
+      >
+        <div>
+          <h2
+            style={{
+              fontFamily: FONTS.heading,
+              color: COLORS.charcoal,
+              fontSize: "clamp(1.35rem, 2vw, 1.9rem)",
+              margin: "0 0 20px"
+            }}
+          >
+            Workiversaries
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {WORKIVERSARIES.map((person) => (
+              <PersonCard key={person.name} person={person} theme="sand" />
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2
+            style={{
+              fontFamily: FONTS.heading,
+              color: COLORS.charcoal,
+              fontSize: "clamp(1.35rem, 2vw, 1.9rem)",
+              margin: "0 0 20px"
+            }}
+          >
+            New team members
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {NEW_TEAM_MEMBERS.map((person) => (
+              <PersonCard key={person.name} person={person} theme="sand" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </SlideFrame>
+  );
+}
+
 function VisualPanel({
   src,
   alt,
@@ -650,136 +781,6 @@ function VisualPanel({
   );
 }
 
-function BrandReasonSlide() {
-  return (
-    <SlideFrame theme="navy" align="left" maxWidth={1400}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "0.88fr 1.12fr",
-          gap: "clamp(34px, 4.5vw, 70px)",
-          alignItems: "center"
-        }}
-      >
-        <div>
-          <Eyebrow>Brand Refresh</Eyebrow>
-          <Title theme="navy">
-            Marketing is both <Accent>art and science</Accent>
-          </Title>
-          <Body theme="navy">
-            Brand design shapes first impressions in milliseconds. For founders entering North America, clarity, discipline, and confidence matter before a conversation even starts.
-          </Body>
-          <div style={{ marginTop: 34 }}>
-            <BulletList
-              theme="navy"
-              items={[
-                { text: "Brand appeal supports revenue and growth" },
-                { text: "Design signals intention, values, and positioning" },
-                { text: "Minimalism communicates confidence" }
-              ]}
-            />
-          </div>
-        </div>
-        <VisualPanel src={brandRefresh01} alt="Brand design art and science slide from the TBDC brand refresh PDF" />
-      </div>
-    </SlideFrame>
-  );
-}
-
-function EcosystemBrandsSlide() {
-  return (
-    <SlideFrame theme="warmWhite" align="left" maxWidth={1400}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "0.82fr 1.18fr",
-          gap: "clamp(34px, 4.5vw, 70px)",
-          alignItems: "center"
-        }}
-      >
-        <div>
-          <Eyebrow>Frame of Reference</Eyebrow>
-          <Title theme="warmWhite">
-            Winning ecosystem brands use <Accent>clarity</Accent>
-          </Title>
-          <Body theme="warmWhite">
-            Sharp lines, focused palettes, and function-first design are the common language of trusted tech brands.
-          </Body>
-          <div style={{ marginTop: 34 }}>
-            <CardGrid
-              theme="warmWhite"
-              columns={1}
-              items={[
-                { icon: Target, title: "Digital-first impression", description: "Most brands are encountered on screens before anywhere else." },
-                { icon: Dot, title: "Typography-led confidence", description: "Clear type and restraint make the message feel disciplined." }
-              ]}
-            />
-          </div>
-        </div>
-        <VisualPanel src={brandRefresh02} alt="Examples of winning tech and ecosystem brand logos" border={false} />
-      </div>
-    </SlideFrame>
-  );
-}
-
-function LogoEvolutionSlide() {
-  return (
-    <SlideFrame theme="navy" align="left" maxWidth={1400}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "0.78fr 1.22fr",
-          gap: "clamp(34px, 4.5vw, 70px)",
-          alignItems: "center"
-        }}
-      >
-        <div>
-          <Eyebrow>Logo Evolution</Eyebrow>
-          <Title theme="navy">
-            Logos evolve as companies <Accent>mature</Accent>
-          </Title>
-          <Body theme="navy">
-            The strongest brands simplify over time. They move toward marks that are sharper, more flexible, and easier to recognize in digital contexts.
-          </Body>
-        </div>
-        <VisualPanel src={brandRefresh03} alt="Logo evolution examples including Techstars, Uber, Intel, Medium, and Logitech" />
-      </div>
-    </SlideFrame>
-  );
-}
-
-function TbdcBrandYearsSlide() {
-  return (
-    <SlideFrame theme="sand" align="left" maxWidth={1400}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "0.82fr 1.18fr",
-          gap: "clamp(34px, 4.5vw, 70px)",
-          alignItems: "center"
-        }}
-      >
-        <div>
-          <Eyebrow>TBDC Brand</Eyebrow>
-          <Title theme="sand">
-            36 years of trust, refreshed for <Accent>what comes next</Accent>
-          </Title>
-          <BulletList
-            theme="sand"
-            items={[
-              { text: "A reputed and trusted brand for founders" },
-              { text: "Circular mark becomes a growth wheel" },
-              { text: "Acceleration through access and possibility" },
-              { text: "A brand updated for the current market and our ICP" }
-            ]}
-          />
-        </div>
-        <VisualPanel src={brandRefresh04} alt="TBDC brand history slide showing 36 years, circular marks, and archival material" />
-      </div>
-    </SlideFrame>
-  );
-}
-
 function PollSlide({
   question,
   options,
@@ -789,7 +790,7 @@ function PollSlide({
 }: {
   question: string;
   options: string[];
-  answer: string;
+  answer?: string;
   eyebrow?: string;
   theme?: Theme;
 }) {
@@ -810,7 +811,7 @@ function PollSlide({
       >
         {options.map((option) => {
           const isSelected = selected === option;
-          const isCorrect = selected !== null && option === answer;
+          const isCorrect = selected !== null && answer !== undefined && option === answer;
           return (
             <button
               key={option}
@@ -853,7 +854,7 @@ function PollSlide({
           );
         })}
       </div>
-      {selected && (
+      {selected && answer && (
         <p
           style={{
             margin: "30px 0 0",
@@ -864,6 +865,19 @@ function PollSlide({
           }}
         >
           Anchor answer: {answer}
+        </p>
+      )}
+      {selected && !answer && (
+        <p
+          style={{
+            margin: "30px 0 0",
+            fontFamily: FONTS.body,
+            fontWeight: 600,
+            color: COLORS.teal,
+            fontSize: "clamp(1.05rem, 1.4vw, 1.3rem)"
+          }}
+        >
+          Discussion poll: compare responses in the room.
         </p>
       )}
     </SlideFrame>
@@ -1028,6 +1042,12 @@ const slides: SlideDefinition[] = [
     )
   },
   {
+    section: "Opening",
+    title: "Workiversaries and Recognition",
+    theme: "sand",
+    render: () => <RecognitionSlide />
+  },
+  {
     section: "Purpose and North Star",
     title: "Why We’re Here",
     theme: "navy",
@@ -1037,29 +1057,6 @@ const slides: SlideDefinition[] = [
         title={<>Why We’re <Accent>Here</Accent></>}
         subtitle="Align on how we operate today, reinforce outcomes over activity, and prepare for Sprint Week."
       />
-    )
-  },
-  {
-    section: "Opening",
-    title: "Workiversaries and Recognition",
-    theme: "sand",
-    render: () => (
-      <SlideFrame theme="sand" align="center">
-        <Eyebrow>Recognition</Eyebrow>
-        <Title theme="sand">Workiversaries &amp; <Accent>Team Milestones</Accent></Title>
-        <Body theme="sand">Birthdays, new hires, work anniversaries, and quick acknowledgements.</Body>
-        <div style={{ marginTop: 48 }}>
-          <CardGrid
-            theme="sand"
-            columns={3}
-            items={[
-              { icon: Sparkles, title: "Milestones", description: "Celebrate team moments that deserve visibility." },
-              { icon: UsersRound, title: "New Hires", description: "Welcome new colleagues into the rhythm of TBDC." },
-              { icon: Handshake, title: "Acknowledgements", description: "Recognize contributions that helped move work forward." }
-            ]}
-          />
-        </div>
-      </SlideFrame>
     )
   },
   {
@@ -1080,20 +1077,63 @@ const slides: SlideDefinition[] = [
     title: "What This Means in Practice and Focus",
     theme: "sand",
     render: () => (
+      <SlideFrame theme="sand" align="left" maxWidth={1420}>
+        <Eyebrow>Practice and Focus</Eyebrow>
+        <Title theme="sand">
+          Tie every activity to an <Accent>outcome</Accent>
+        </Title>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(32px, 4vw, 58px)",
+            marginTop: 18
+          }}
+        >
+          <CardGrid
+            theme="sand"
+            columns={1}
+            compact
+            items={[
+              { icon: Target, title: "Strategic shift", description: "Sales brings in companies we can actually impact." },
+              { icon: ClipboardCheck, title: "Programming", description: "Every engagement ties to a clear outcome." },
+              { icon: TrendingUp, title: "Revenue", description: "Value becomes paid work deliberately." },
+              { icon: Megaphone, title: "Marketing", description: "Outcome-driven stories are backed by proof points." }
+            ]}
+          />
+          <CardGrid
+            theme="sand"
+            columns={1}
+            compact
+            items={[
+              { icon: CheckCircle2, title: "Define success upfront", description: "Clarify the baseline, desired outcome, and proof we need to capture." },
+              { icon: Network, title: "Strengthen qualification", description: "Track baseline versus outcome and tie activity to measurable movement." },
+              { icon: CircleAlert, title: "Share operational learnings", description: "Make efficiencies and patterns visible across teams." },
+              { icon: Sparkles, title: "Use AI deliberately", description: "Improve speed and quality without replacing judgment." }
+            ]}
+          />
+        </div>
+      </SlideFrame>
+    )
+  },
+  {
+    section: "Purpose and North Star",
+    title: "How We’re Creating More Alignment",
+    theme: "warmWhite",
+    render: () => (
       <SplitSlide
-        theme="sand"
-        eyebrow="Practice and Focus"
-        title={<>Tie every activity to an <Accent>outcome</Accent></>}
+        theme="warmWhite"
+        eyebrow="Alignment"
+        title={<>Creating clearer <Accent>quarterly rhythms</Accent></>}
+        body="Leadership alignment becomes team clarity, focus, accountability, and cross-functional coordination."
       >
-        <CardGrid
-          theme="sand"
-          columns={2}
-          compact
+        <Timeline
+          theme="warmWhite"
           items={[
-            { icon: Target, title: "Sales", description: "Bring in companies we can actually impact." },
-            { icon: ClipboardCheck, title: "Programming", description: "Tie every engagement to a clear outcome." },
-            { icon: TrendingUp, title: "Revenue", description: "Translate value into paid work deliberately." },
-            { icon: Megaphone, title: "Marketing", description: "Tell outcome-driven stories with proof points." }
+            { text: "Organizational direction", detail: "leadership has aligned around a clearer operating focus" },
+            { text: "Quarterly planning", detail: "top priorities, dependencies, sequencing, and capacity become explicit" },
+            { text: "Connected work", detail: "teams and individuals link their work to broader organizational priorities" },
+            { text: "Evolving system", detail: "this process will become part of how we operate together" }
           ]}
         />
       </SplitSlide>
@@ -1101,22 +1141,93 @@ const slides: SlideDefinition[] = [
   },
   {
     section: "Purpose and North Star",
-    title: "How We Track and What’s Coming",
-    theme: "warmWhite",
+    title: "Operational Awareness and Cyber Safety",
+    theme: "navy",
     render: () => (
       <SplitSlide
-        theme="warmWhite"
-        eyebrow="Tracking"
-        title={<>This is our <Accent>North Star</Accent> and here’s our system to reinforce it</>}
-        body="Movement, risk, and outcomes."
+        theme="navy"
+        eyebrow="Operational Awareness"
+        title={<>Digital awareness is part of <Accent>operational discipline</Accent></>}
       >
-        <Timeline
-          theme="warmWhite"
+        <CardGrid
+          theme="navy"
+          columns={1}
+          compact
           items={[
-            { text: "Weekly tracker", detail: "the source of truth" },
-            { text: "Update discipline", detail: "movement, risk, or outcomes — not activity" },
-            { text: "Quarterly outcome reviews", detail: "more structured leadership rhythm" },
-            { text: "June rollout", detail: "organization-wide goals and performance management" }
+            { icon: ShieldCheck, title: "Stay cautious", description: "Watch for unexpected links, attachments, and login prompts." },
+            { icon: CircleAlert, title: "Verify unusual requests", description: "Pause on password, payment, or sensitive-information asks." },
+            { icon: MessageCircle, title: "Report quickly", description: "Flag suspicious emails or activity immediately." }
+          ]}
+        />
+      </SplitSlide>
+    )
+  },
+  {
+    section: "Rebrand",
+    title: "Our New Brand is Live",
+    theme: "navy",
+    render: () => (
+      <SplitSlide
+        theme="navy"
+        eyebrow="Rebrand"
+        title={<>Our new brand is <Accent>live</Accent></>}
+        body="The new brand and website reflect how TBDC operates today: precision over volume, sharper choices, and clearer momentum."
+      >
+        <VisualPanel src={brandRefresh04} alt="TBDC brand history slide showing the refreshed mark and archival material" />
+      </SplitSlide>
+    )
+  },
+  {
+    section: "Rebrand",
+    title: "What Changed",
+    theme: "warmWhite",
+    render: () => (
+      <SplitSlide theme="warmWhite" eyebrow="Dharti Lead" title={<>A sharper expression of <Accent>TBDC</Accent></>}>
+        <CardGrid
+          theme="warmWhite"
+          columns={1}
+          compact
+          items={[
+            { icon: Target, title: "From 26 years to now", description: "The new logo reflects how the organization has evolved." },
+            { icon: ClipboardCheck, title: "Katana philosophy", description: "Japanese precision as an anchor: disciplined technique, sharpness, clarity, timing, and momentum." },
+            { icon: UsersRound, title: "Core values", description: "Precision, Growth, and Community become clearer signals for how we work." },
+            { icon: TrendingUp, title: "Founder impact", description: "We help founders become sharper and more precise in how they operate." }
+          ]}
+        />
+      </SplitSlide>
+    )
+  },
+  {
+    section: "Rebrand",
+    title: "How We Demonstrated These Values",
+    theme: "sand",
+    render: () => (
+      <SplitSlide theme="sand" eyebrow="Dan Lead" title={<>A brand refresh delivered with <Accent>intention</Accent></>}>
+        <BulletList
+          theme="sand"
+          items={[
+            { text: "A refreshed brand presence and website within 30 days" },
+            { text: "A practical example of how we intend to serve founders" },
+            { text: "Focused execution with precision, growth, and community in action" }
+          ]}
+        />
+      </SplitSlide>
+    )
+  },
+  {
+    section: "Rebrand",
+    title: "What It Took",
+    theme: "warmWhite",
+    render: () => (
+      <SplitSlide theme="warmWhite" eyebrow="Dan Lead" title={<>Cross-functional work, accelerated by <Accent>AI-enabled workflows</Accent></>}>
+        <CardGrid
+          theme="warmWhite"
+          columns={1}
+          compact
+          items={[
+            { icon: Network, title: "Collaboration", description: "Marketing and cross-team collaboration shaped the work." },
+            { icon: Megaphone, title: "Website and messaging", description: "The refresh connected visual identity, story, and digital presence." },
+            { icon: Sparkles, title: "Practical AI workflows", description: "AI helped improve speed and quality through the rebuild." }
           ]}
         />
       </SplitSlide>
@@ -1130,7 +1241,7 @@ const slides: SlideDefinition[] = [
       <SectionSlide
         section="Sprint Week"
         title={<>A core founder <Accent>experience</Accent></>}
-        subtitle="A highly visible moment that shapes perception, outcomes, and follow-on opportunity."
+        subtitle="A highly visible moment that shapes perception and outcomes. Everything we discussed about precision applies here."
       />
     )
   },
@@ -1185,6 +1296,28 @@ const slides: SlideDefinition[] = [
   },
   {
     section: "Sprint Week",
+    title: "Special Guests and Ecosystem Partners",
+    theme: "warmWhite",
+    render: () => (
+      <SplitSlide
+        theme="warmWhite"
+        eyebrow="Ecosystem Partners"
+        title={<>Important guests shaping the <Accent>Sprint Week experience</Accent></>}
+      >
+        <Timeline
+          theme="warmWhite"
+          items={[
+            { text: "All week", detail: "Ekke Van Vliet, Investment Coordinator from the European Innovation Council" },
+            { text: "Monday", detail: "Evan Solomon, Minister of AI, for the Go EU announcement" },
+            { text: "Also Monday", detail: "Piyush Goyal joins the ecosystem conversation" },
+            { text: "Throughout the week", detail: "Additional ecosystem and industry leaders" }
+          ]}
+        />
+      </SplitSlide>
+    )
+  },
+  {
+    section: "Sprint Week",
     title: "What Success Looks Like",
     theme: "warmWhite",
     render: () => (
@@ -1210,7 +1343,7 @@ const slides: SlideDefinition[] = [
         theme="navy"
         eyebrow="Team Expectations"
         title={<>First impressions set the <Accent>tone</Accent></>}
-        body="Be present, approachable, proactive, and ready to help founders navigate the week."
+        body="Be present, approachable, proactive, and sharp as ever: clear, focused, and intentional in every interaction."
       >
         <CardGrid
           theme="navy"
@@ -1284,149 +1417,94 @@ const slides: SlideDefinition[] = [
         theme="sand"
         eyebrow="Final Sprint Reminder"
         title={<>Every interaction contributes to whether we move these companies <Accent>forward</Accent></>}
+        body="Everyone sharp. Every moment counts."
       />
     )
   },
   {
-    section: "Rebrand",
-    title: "Our New Brand is Live",
+    section: "GTK TBDC",
+    title: "GTK TBDC Intro",
     theme: "navy",
     render: () => (
       <SectionSlide
-        section="Rebrand"
-        title={<>Our new brand is <Accent>live</Accent></>}
-        subtitle="The new brand and website reflect how TBDC operates today. Hand off to Dharti Chatterjee."
+        section="GTK TBDC"
+        title={<>Get to Know <Accent>TBDC</Accent></>}
+        subtitle="A new recurring segment to build shared understanding of the business and how each part creates value."
       />
     )
   },
   {
-    section: "Rebrand",
-    title: "Brand Refresh: Art and Science",
-    theme: "navy",
-    render: () => <BrandReasonSlide />
-  },
-  {
-    section: "Rebrand",
-    title: "Ecosystem’s Winning Brands",
-    theme: "warmWhite",
-    render: () => <EcosystemBrandsSlide />
-  },
-  {
-    section: "Rebrand",
-    title: "Logos Evolve Over Time",
-    theme: "navy",
-    render: () => <LogoEvolutionSlide />
-  },
-  {
-    section: "Rebrand",
-    title: "TBDC Brand: 36 Years",
-    theme: "sand",
-    render: () => <TbdcBrandYearsSlide />
-  },
-  {
-    section: "Rebrand",
-    title: "What Changed",
-    theme: "warmWhite",
-    render: () => (
-      <SplitSlide theme="warmWhite" eyebrow="Dharti Lead" title={<>What <Accent>changed</Accent></>}>
-        <BulletList
-          theme="warmWhite"
-          items={[
-            { text: "Why the brand evolved" },
-            { text: "What it represents now" },
-            { text: "How it aligns to our work" }
-          ]}
-        />
-      </SplitSlide>
-    )
-  },
-  {
-    section: "Rebrand",
-    title: "What It Took and Recognition",
-    theme: "sand",
-    render: () => (
-      <SplitSlide theme="sand" eyebrow="Dharti Lead" title={<>What it <Accent>took</Accent></>}>
-        <BulletList
-          theme="sand"
-          items={[
-            { text: "Cross-functional input" },
-            { text: "Website and messaging rebuild" },
-            { text: "Multiple iterations" },
-            { text: "Marketing team and contributors" },
-            { text: "Cross-team collaboration" }
-          ]}
-        />
-      </SplitSlide>
-    )
-  },
-  {
-    section: "Inside TBDC",
-    title: "Inside TBDC Intro",
-    theme: "navy",
-    render: () => (
-      <SectionSlide
-        section="Inside TBDC"
-        title={<>Know the <Accent>Business</Accent></>}
-        subtitle="A new recurring segment to build shared understanding of how each part of TBDC creates value."
-      />
-    )
-  },
-  {
-    section: "Inside TBDC",
-    title: "Poll: Was Sprint Week successful?",
+    section: "GTK TBDC",
+    title: "Poll: Strongest value indicator",
     theme: "sand",
     render: () => (
       <PollSlide
-        question="If founders say they loved Sprint Week, but nothing changes in their business afterward, was Sprint Week successful?"
-        options={["Yes", "No"]}
-        answer="No"
+        eyebrow="GTK TBDC Poll"
+        question="What is the strongest indicator that Sprint Week created real value?"
+        options={[
+          "Founders leave with clearer strategic direction",
+          "Founders gain high value relationships they would not otherwise access",
+          "Founders convert momentum into measurable business movement after the program",
+          "Founders publicly praise the experience"
+        ]}
+        answer="Founders convert momentum into measurable business movement after the program"
       />
     )
   },
   {
-    section: "Inside TBDC",
-    title: "Poll: Can Programming do it alone?",
+    section: "GTK TBDC",
+    title: "Poll: Strongest Sprint Week fit",
     theme: "warmWhite",
     render: () => (
       <PollSlide
-        question="Can Programming alone make Sprint Week successful?"
-        options={["Yes", "No"]}
-        answer="No"
+        eyebrow="GTK TBDC Poll"
+        question="Which company is likely the strongest fit for Sprint Week?"
+        options={[
+          "A founder with an early idea looking for general feedback",
+          "A company with paying customers, traction in at least one core market, and clear market expansion goals",
+          "A founder still exploring which problem they want to solve",
+          "A company looking mainly for free coworking space and networking"
+        ]}
+        answer="A company with paying customers, traction in at least one core market, and clear market expansion goals"
         theme="warmWhite"
       />
     )
   },
   {
-    section: "Inside TBDC",
-    title: "Poll: Did we deliver full value?",
+    section: "GTK TBDC",
+    title: "Poll: Applying the Katana philosophy",
     theme: "sand",
     render: () => (
       <PollSlide
-        question="If we create strong meetings during Sprint Week but never follow up afterward, have we delivered full value?"
-        options={["Yes", "No"]}
-        answer="No"
+        eyebrow="GTK TBDC Poll"
+        question="How do we better apply the new Katana philosophy at work?"
+        options={[
+          "Avoid wasting time and resources",
+          "Work with more focus, precision, and accountability",
+          "Resolve issues through discussion and understanding instead of conflict",
+          "All of the above"
+        ]}
+        answer="All of the above"
       />
     )
   },
   {
-    section: "Inside TBDC",
-    title: "Anchor and What This Becomes",
-    theme: "navy",
+    section: "GTK TBDC",
+    title: "Poll: North Star outcome",
+    theme: "warmWhite",
     render: () => (
-      <SplitSlide
-        theme="navy"
-        eyebrow="Anchor"
-        title={<>Sprint Week works when the <Accent>system works</Accent></>}
-      >
-        <Timeline
-          theme="navy"
-          items={[
-            { text: "Right companies", detail: "fit, stage, and potential for impact" },
-            { text: "Strong experience", detail: "coordinated, practical, and founder-centered" },
-            { text: "Follow-through", detail: "clear next steps and accountability" }
-          ]}
-        />
-      </SplitSlide>
+      <PollSlide
+        eyebrow="GTK TBDC Poll"
+        question="Which outcome best reflects TBDC’s North Star?"
+        options={[
+          "Hosting more events",
+          "Increasing founder attendance",
+          "Creating measurable business movement for companies",
+          "Growing social media engagement"
+        ]}
+        answer="Creating measurable business movement for companies"
+        theme="warmWhite"
+      />
     )
   },
   {
@@ -1434,13 +1512,19 @@ const slides: SlideDefinition[] = [
     title: "AI and Automation",
     theme: "sand",
     render: () => (
-      <SplitSlide theme="sand" eyebrow="AI and Automation" title={<>A growing focus across <Accent>TBDC</Accent></>}>
+      <SplitSlide
+        theme="sand"
+        eyebrow="AI and Automation"
+        title={<>Improving speed, quality, and <Accent>operational leverage</Accent></>}
+      >
         <BulletList
           theme="sand"
           items={[
+            { text: "Teams are encouraged to share workflows, efficiencies, and learnings" },
+            { text: "The goal is not replacing judgment, it is improving how we work" },
+            { text: "We are building internal AI literacy together" },
             { text: "BHive AI program launching in the coming months" },
-            { text: "Begin integrating AI into day-to-day work" },
-            { text: "AI Lunch and Learn follows Town Hall with Nikki Liddias" }
+            { text: "AI Lunch and Learn immediately follows Town Hall with Nikki" }
           ]}
         />
       </SplitSlide>
@@ -1453,14 +1537,13 @@ const slides: SlideDefinition[] = [
     render: () => (
       <PollSlide
         eyebrow="AI Poll"
-        question="What AI enabled workflow or tool would save you the most time today?"
+        question="Which AI enabled workflow currently creates the most leverage for your work?"
         options={[
-          "Research support",
-          "First-draft writing",
-          "Meeting summaries and action items",
+          "Research and information synthesis",
+          "Drafting emails, documents, and reports",
+          "Meeting summaries and action tracking",
           "Presentation and content creation"
         ]}
-        answer="Meeting summaries and action items"
         theme="warmWhite"
       />
     )
@@ -1470,13 +1553,13 @@ const slides: SlideDefinition[] = [
     title: "What’s Next",
     theme: "warmWhite",
     render: () => (
-      <SplitSlide theme="warmWhite" eyebrow="What’s Next" title={<>June is about <Accent>rollout</Accent></>}>
+      <SplitSlide theme="warmWhite" eyebrow="What’s Next" title={<>More clarity around priorities, ownership, and <Accent>coordination</Accent></>}>
         <CardGrid
           theme="warmWhite"
           columns={2}
           items={[
-            { icon: Flag, title: "Quarterly goals", description: "Organization-wide goals become clearer and more visible." },
-            { icon: Target, title: "Performance management", description: "A rollout that connects priorities, ownership, and measurable progress." }
+            { icon: Flag, title: "Leadership and team alignment", description: "Goal alignment work begins in June." },
+            { icon: Target, title: "Quarterly planning rhythms", description: "Priorities, ownership, and cross-functional coordination become clearer." }
           ]}
         />
       </SplitSlide>
@@ -1677,7 +1760,7 @@ export default function App() {
         slides={slides}
       />
 
-      {current.render()}
+      <div key={currentSlide}>{current.render()}</div>
     </div>
   );
 }
