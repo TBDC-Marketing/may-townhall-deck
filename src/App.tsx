@@ -233,7 +233,7 @@ function Title({
 }: {
   children: ReactNode;
   theme: Theme;
-  size?: "default" | "large";
+  size?: "compact" | "default" | "large";
 }) {
   return (
     <h1
@@ -243,11 +243,13 @@ function Title({
         fontSize:
           size === "large"
             ? "clamp(3.2rem, 6.4vw, 6rem)"
+            : size === "compact"
+              ? "clamp(2.35rem, 4.4vw, 4.05rem)"
             : "clamp(2.8rem, 5.5vw, 5rem)",
         lineHeight: 1.08,
         letterSpacing: "-0.03em",
         color: themeStyles(theme).heading,
-        margin: "0 0 24px 0"
+        margin: size === "compact" ? "0 0 18px 0" : "0 0 24px 0"
       }}
     >
       {children}
@@ -435,6 +437,83 @@ function CardGrid({
   );
 }
 
+function CompactCardGrid({
+  items,
+  theme,
+  columns
+}: {
+  items: CardItem[];
+  theme: Theme;
+  columns: number;
+}) {
+  const t = themeStyles(theme);
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        gap: 18,
+        textAlign: "left"
+      }}
+    >
+      {items.map((item) => {
+        const Icon = item.icon;
+        return (
+          <div
+            key={item.title}
+            style={{
+              background: t.card,
+              borderRadius: 18,
+              padding: "18px 18px 20px",
+              border: `1px solid ${t.border}`,
+              borderLeft: `3px solid ${COLORS.teal}`,
+              boxShadow: theme === "navy" ? "none" : "0 2px 18px rgba(10,22,40,0.06)",
+              minHeight: 148
+            }}
+          >
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 12,
+                background: "rgba(0,168,142,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 12
+              }}
+            >
+              <Icon size={23} color={COLORS.teal} />
+            </div>
+            <h3
+              style={{
+                fontFamily: FONTS.heading,
+                fontWeight: 700,
+                fontSize: "clamp(1.02rem, 1.25vw, 1.28rem)",
+                color: t.heading,
+                margin: "0 0 6px 0"
+              }}
+            >
+              {item.title}
+            </h3>
+            <p
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: "clamp(0.9rem, 1.05vw, 1.05rem)",
+                lineHeight: 1.45,
+                color: t.body,
+                margin: 0
+              }}
+            >
+              {item.description}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function SplitSlide({
   theme,
   eyebrow,
@@ -587,24 +666,26 @@ function LogoGrid() {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
-        gap: 18
+        gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
+        gap: 24,
+        alignItems: "stretch"
       }}
     >
       {COHORT_COMPANIES.map((company, index) => (
         <div
           key={company.name}
           style={{
-            minHeight: index === 6 ? 150 : 132,
-            gridColumn: index === 6 ? "2 / span 2" : "auto",
+            minHeight: 184,
+            gridColumn: index < 3 ? "span 2" : index < 6 ? "span 2" : "2 / span 4",
             background: "#fff",
             border: "1px solid rgba(203,213,225,0.55)",
-            borderRadius: 20,
+            borderRadius: 24,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: 10,
+            gap: 18,
+            padding: "26px 32px",
             boxShadow: "0 2px 18px rgba(10,22,40,0.06)"
           }}
         >
@@ -612,8 +693,9 @@ function LogoGrid() {
             src={company.logoUrl}
             alt={`${company.name} logo`}
             style={{
-              maxWidth: "78%",
-              maxHeight: 58,
+              width: "100%",
+              maxWidth: index === 6 ? 300 : 230,
+              maxHeight: index === 6 ? 78 : 72,
               objectFit: "contain"
             }}
             onError={(event) => {
@@ -623,7 +705,7 @@ function LogoGrid() {
           <span
             style={{
               fontFamily: FONTS.mono,
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: 700,
               color: COLORS.muted,
               textTransform: "uppercase",
@@ -1079,40 +1161,23 @@ const slides: SlideDefinition[] = [
     render: () => (
       <SlideFrame theme="sand" align="left" maxWidth={1420}>
         <Eyebrow>Practice and Focus</Eyebrow>
-        <Title theme="sand">
+        <Title theme="sand" size="compact">
           Tie every activity to an <Accent>outcome</Accent>
         </Title>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(32px, 4vw, 58px)",
-            marginTop: 18
-          }}
-        >
-          <CardGrid
-            theme="sand"
-            columns={1}
-            compact
-            items={[
-              { icon: Target, title: "Strategic shift", description: "Sales brings in companies we can actually impact." },
-              { icon: ClipboardCheck, title: "Programming", description: "Every engagement ties to a clear outcome." },
-              { icon: TrendingUp, title: "Revenue", description: "Value becomes paid work deliberately." },
-              { icon: Megaphone, title: "Marketing", description: "Outcome-driven stories are backed by proof points." }
-            ]}
-          />
-          <CardGrid
-            theme="sand"
-            columns={1}
-            compact
-            items={[
-              { icon: CheckCircle2, title: "Define success upfront", description: "Clarify the baseline, desired outcome, and proof we need to capture." },
-              { icon: Network, title: "Strengthen qualification", description: "Track baseline versus outcome and tie activity to measurable movement." },
-              { icon: CircleAlert, title: "Share operational learnings", description: "Make efficiencies and patterns visible across teams." },
-              { icon: Sparkles, title: "Use AI deliberately", description: "Improve speed and quality without replacing judgment." }
-            ]}
-          />
-        </div>
+        <CompactCardGrid
+          theme="sand"
+          columns={4}
+          items={[
+            { icon: Target, title: "Strategic shift", description: "Sales brings in companies we can actually impact." },
+            { icon: ClipboardCheck, title: "Programming", description: "Every engagement ties to a clear outcome." },
+            { icon: TrendingUp, title: "Revenue", description: "Value becomes paid work deliberately." },
+            { icon: Megaphone, title: "Marketing", description: "Outcome-driven stories are backed by proof points." },
+            { icon: CheckCircle2, title: "Define success upfront", description: "Clarify the baseline, desired outcome, and proof we need to capture." },
+            { icon: Network, title: "Strengthen qualification", description: "Track baseline versus outcome and tie activity to measurable movement." },
+            { icon: CircleAlert, title: "Share operational learnings", description: "Make efficiencies and patterns visible across teams." },
+            { icon: Sparkles, title: "Use AI deliberately", description: "Improve speed and quality without replacing judgment." }
+          ]}
+        />
       </SlideFrame>
     )
   },
@@ -1182,19 +1247,33 @@ const slides: SlideDefinition[] = [
     title: "What Changed",
     theme: "warmWhite",
     render: () => (
-      <SplitSlide theme="warmWhite" eyebrow="Dharti Lead" title={<>A sharper expression of <Accent>TBDC</Accent></>}>
-        <CardGrid
-          theme="warmWhite"
-          columns={1}
-          compact
-          items={[
-            { icon: Target, title: "From 26 years to now", description: "The new logo reflects how the organization has evolved." },
-            { icon: ClipboardCheck, title: "Katana philosophy", description: "Japanese precision as an anchor: disciplined technique, sharpness, clarity, timing, and momentum." },
-            { icon: UsersRound, title: "Core values", description: "Precision, Growth, and Community become clearer signals for how we work." },
-            { icon: TrendingUp, title: "Founder impact", description: "We help founders become sharper and more precise in how they operate." }
-          ]}
-        />
-      </SplitSlide>
+      <SlideFrame theme="warmWhite" align="left" maxWidth={1420}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "0.85fr 1.15fr",
+            gap: "clamp(36px, 5vw, 72px)",
+            alignItems: "center"
+          }}
+        >
+          <div>
+            <Eyebrow>Dharti Lead</Eyebrow>
+            <Title theme="warmWhite" size="compact">
+              A sharper expression of <Accent>TBDC</Accent>
+            </Title>
+          </div>
+          <CompactCardGrid
+            theme="warmWhite"
+            columns={2}
+            items={[
+              { icon: Target, title: "From 26 years to now", description: "The new logo reflects how the organization has evolved." },
+              { icon: ClipboardCheck, title: "Katana philosophy", description: "Japanese precision as an anchor: disciplined technique, sharpness, clarity, timing, and momentum." },
+              { icon: UsersRound, title: "Core values", description: "Precision, Growth, and Community become clearer signals for how we work." },
+              { icon: TrendingUp, title: "Founder impact", description: "We help founders become sharper and more precise in how they operate." }
+            ]}
+          />
+        </div>
+      </SlideFrame>
     )
   },
   {
@@ -1250,9 +1329,9 @@ const slides: SlideDefinition[] = [
     title: "Who Is Coming",
     theme: "warmWhite",
     render: () => (
-      <SlideFrame theme="warmWhite" align="center" maxWidth={1400}>
+      <SlideFrame theme="warmWhite" align="center" maxWidth={1460}>
         <Eyebrow>Founder Cohort</Eyebrow>
-        <Title theme="warmWhite">7 later-stage, <Accent>scaling companies</Accent></Title>
+        <Title theme="warmWhite" size="compact">7 later-stage, <Accent>scaling companies</Accent></Title>
         <LogoGrid />
       </SlideFrame>
     )
