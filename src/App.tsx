@@ -1387,8 +1387,7 @@ const slides: SlideDefinition[] = [
           theme="warmWhite"
           items={[
             { text: "All week", detail: "Ekke Van Vliet, Investment Coordinator from the European Innovation Council" },
-            { text: "Monday", detail: "Evan Solomon, Minister of AI, for the Go EU announcement" },
-            { text: "Also Monday", detail: "Piyush Goyal joins the ecosystem conversation" },
+            { text: "Monday", detail: "Piyush Goyal, India’s Minister of Commerce and Industry, joins the ecosystem conversation" },
             { text: "Throughout the week", detail: "Additional ecosystem and industry leaders" }
           ]}
         />
