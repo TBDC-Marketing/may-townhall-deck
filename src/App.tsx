@@ -28,7 +28,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-import brandRefresh04 from "./assets/brand-refresh/brand-refresh-04.webp";
+import katanaPrinciple from "./assets/brand-refresh/katana-principle.png";
+import tbdcBrandTransition from "./assets/brand-refresh/tbdc-brand-transition.png";
 import astrikosLogo from "./assets/cohort/astrikos.png";
 import blunavLogo from "./assets/cohort/blunav.png";
 import sensoneoLogo from "./assets/cohort/sensoneo.png";
@@ -834,11 +835,13 @@ function RecognitionSlide() {
 function VisualPanel({
   src,
   alt,
-  border = true
+  border = true,
+  maxHeight
 }: {
   src: string;
   alt: string;
   border?: boolean;
+  maxHeight?: number | string;
 }) {
   return (
     <div
@@ -856,7 +859,9 @@ function VisualPanel({
         style={{
           display: "block",
           width: "100%",
-          height: "auto"
+          height: "auto",
+          maxHeight,
+          objectFit: maxHeight ? "contain" : undefined
         }}
       />
     </div>
@@ -1238,7 +1243,7 @@ const slides: SlideDefinition[] = [
         title={<>Our new brand is <Accent>live</Accent></>}
         body="The new brand and website reflect how TBDC operates today: precision over volume, sharper choices, and clearer momentum."
       >
-        <VisualPanel src={brandRefresh04} alt="TBDC brand history slide showing the refreshed mark and archival material" />
+        <VisualPanel src={tbdcBrandTransition} alt="TBDC brand transition visual" maxHeight="62vh" />
       </SplitSlide>
     )
   },
@@ -1272,6 +1277,54 @@ const slides: SlideDefinition[] = [
               { icon: TrendingUp, title: "Founder impact", description: "We help founders become sharper and more precise in how they operate." }
             ]}
           />
+        </div>
+      </SlideFrame>
+    )
+  },
+  {
+    section: "Rebrand",
+    title: "The Katana Principle",
+    theme: "navy",
+    render: () => (
+      <SlideFrame theme="navy" align="left" maxWidth={1420}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "0.95fr 1.05fr",
+            gap: "clamp(42px, 5vw, 80px)",
+            alignItems: "center"
+          }}
+        >
+          <div>
+            <Eyebrow>Katana Principle</Eyebrow>
+            <Title theme="navy" size="compact">
+              The Katana <Accent>Principle.</Accent>
+            </Title>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 18,
+                fontFamily: FONTS.body,
+                fontSize: "clamp(1.05rem, 1.35vw, 1.32rem)",
+                lineHeight: 1.58,
+                color: themeStyles("navy").body
+              }}
+            >
+              <p style={{ margin: 0 }}>
+                The katana is one blade, perfected through intentional design without excess. We help you build
+                companies with clarity and structure — sharpened for your market to scale with precision.
+              </p>
+              <p style={{ margin: 0 }}>
+                Our programs forge deep connections with proven operators, enterprise buyers, institutional investors,
+                and government partners.
+              </p>
+              <p style={{ margin: 0, color: "#fff", fontWeight: 700 }}>
+                Our guiding principle: Build with purpose. Lead with clarity. Structure for scale.
+              </p>
+            </div>
+          </div>
+          <VisualPanel src={katanaPrinciple} alt="TBDC Katana Principle visual" border={false} />
         </div>
       </SlideFrame>
     )
