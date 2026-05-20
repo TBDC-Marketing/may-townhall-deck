@@ -11,6 +11,7 @@ const colors = {
 };
 
 type Theme = "navy" | "warm" | "sand";
+type Visual = "brandTransition" | "katanaPrinciple";
 type Slide = {
   section: string;
   title: string;
@@ -20,6 +21,8 @@ type Slide = {
   body?: string;
   bullets?: string[];
   columns?: { title: string; text: string }[];
+  visual?: Visual;
+  visualSide?: "left" | "right";
   menti?: { label: string; question: string; options: string[] };
 };
 
@@ -32,15 +35,16 @@ const slides: Slide[] = [
   { section: "Purpose / North Star", title: "What This Means in Practice and Focus", theme: "sand", eyebrow: "Practice and Focus", kicker: "Clear priorities, visible progress", columns: [{ title: "Sales", text: "Sharper pipeline visibility, clearer handoffs, and stronger founder conversations." }, { title: "Programming", text: "High-quality delivery, founder readiness, and practical support that matches the stage." }, { title: "Revenue", text: "Funding readiness, partner value, and measurable conversion opportunities." }, { title: "Marketing", text: "Consistent story, stronger brand presence, and clear communications across channels." }] },
   { section: "Purpose / North Star", title: "How We Track and What's Coming", theme: "warm", eyebrow: "Tracking", kicker: "The next phase needs better visibility", bullets: ["We are moving toward clearer goals, cleaner reporting, and stronger accountability", "Leadership will continue refining what we track and how we talk about progress", "Expect more visibility into quarterly goals, performance conversations, and team-level priorities"] },
   { section: "Purpose / North Star", title: "Operational Awareness and Cyber Safety", theme: "navy", eyebrow: "Operational Awareness", kicker: "Cyber safety is part of how we protect the work", bullets: ["Be alert with links, files, approvals, passwords, and unexpected requests", "Slow down when something feels urgent, unusual, or outside the normal process", "Verify before acting, especially around payments, credentials, founder data, and partner information", "Raise concerns early. It is always better to ask than to guess"] },
-  { section: "Rebrand", title: "Our New Brand is Live", theme: "navy", eyebrow: "Rebrand", kicker: "A sharper expression of who we are", body: "The new TBDC brand and website are live. This is more than a visual refresh; it is a clearer signal of the organization we are becoming." },
+  { section: "Rebrand", title: "Our New Brand is Live", theme: "navy", eyebrow: "Rebrand", kicker: "A sharper expression of who we are", body: "The new TBDC brand and website are live. This is more than a visual refresh; it is a clearer signal of the organization we are becoming.", visual: "brandTransition", visualSide: "right" },
   { section: "Rebrand", title: "What Changed", theme: "warm", eyebrow: "What Changed", kicker: "Brand, website, message, and experience", bullets: ["New visual identity and refreshed brand system", "Updated website experience and clearer messaging", "Stronger founder-facing language around what TBDC makes possible", "A more consistent look, voice, and standard across materials"] },
+  { section: "Rebrand", title: "The Katana Principle", theme: "navy", eyebrow: "New Symbol", kicker: "The Katana Principle.", body: "The katana is one blade, perfected through intentional design without excess. We help you build companies with clarity and structure - sharpened for your market to scale with precision.", bullets: ["Our programs forge deep connections with proven operators, enterprise buyers, institutional investors, and government partners.", "Our guiding principle: Build with purpose. Lead with clarity. Structure for scale."], visual: "katanaPrinciple", visualSide: "right" },
   { section: "Rebrand", title: "How We Demonstrated These Core Values as a Team", theme: "sand", eyebrow: "Dan", kicker: "PRECISION / GROWTH / COMMUNITY", columns: [{ title: "Precision", text: "A fast, detailed, cross-functional push with careful decisions and high standards." }, { title: "Growth", text: "A brand refresh that positions TBDC for the next chapter and a stronger path to progress." }, { title: "Community", text: "Marketing, leadership, and cross-team collaboration working together with intention." }] },
   { section: "Rebrand", title: "What It Took", theme: "navy", eyebrow: "Dan", kicker: "What it took", bullets: ["Within 30 days, a whole new brand refresh and website", "Cross-functional collaboration paired with practical AI-enabled workflows", "Website and messaging rebuild", "This is how we intend to also serve our founders: with intention"] },
   { section: "Sprint Week", title: "Sprint Week Overview", theme: "navy", eyebrow: "Sprint Week", kicker: "A high-touch week for founders, partners, and our team", body: "Sprint Week is one of the clearest moments where our operating standard becomes visible." },
   { section: "Sprint Week", title: "Who Is Coming", theme: "warm", eyebrow: "Founders and Partners", kicker: "A full room, with high expectations", bullets: ["Founders from across the portfolio", "Mentors, partners, speakers, and invited guests", "TBDC team members supporting delivery, experience, and logistics", "Company logos remain placeholders until final assets are supplied"] },
   { section: "Sprint Week", title: "Sprint Week Timing", theme: "sand", eyebrow: "Timing", kicker: "Monday, June 2 to Friday, June 6", bullets: ["Monday sets the tone for the full week", "Tuesday through Thursday carry the deepest founder support and programming", "Friday is about closeout, momentum, and follow-through"] },
   { section: "Sprint Week", title: "Weekly Flow", theme: "warm", eyebrow: "Flow", kicker: "Every day needs rhythm", columns: [{ title: "Mornings", text: "Arrival, welcome, room readiness, founder orientation, and setup." }, { title: "Afternoons", text: "Programming, meetings, support, partner touchpoints, and issue resolution." }, { title: "Evenings", text: "Reset, recap, preparation, and communication for the next day." }] },
-  { section: "Sprint Week", title: "What Success Looks Like", theme: "navy", eyebrow: "Success", kicker: "Everyone sharp. Every moment counts.", bullets: ["Founders feel expected, welcomed, guided, and supported", "Rooms, materials, timing, and transitions feel intentional", "The team knows where to be, what to do, and who to escalate to", "Issues are handled quickly and calmly"] },
+  { section: "Sprint Week", title: "What Success Looks Like", theme: "navy", eyebrow: "Success", kicker: "Everyone sharp. Every moment counts.", bullets: ["Founders feel expected, welcomed, guided, and supported", "Rooms, materials, timing, and transitions feel intentional", "The team knows where to be, what to do, and who to escalate to", "Piyush Goyal, India's Minister of Commerce and Industry, may visit during Sprint Week; keep founder-facing spaces polished, prepared, and on standard.", "Issues are handled quickly and calmly"] },
   { section: "Sprint Week", title: "Team Expectations and Early Week Focus", theme: "sand", eyebrow: "Expectations", kicker: "Prepared, visible, responsive", bullets: ["Be early and ready before founders arrive", "Know the schedule, your role, and the escalation path", "Stay visible and approachable throughout the day", "Own the small details: food, coffee, water, facilities, room navigation, and founder guidance"] },
   { section: "Sprint Week", title: "White Glove Experience", theme: "warm", eyebrow: "White Glove", kicker: "The details are the experience", bullets: ["Founder questions should be answered with care and speed", "Guests should never feel lost or unsure where to go", "Support should feel proactive, not reactive", "Hospitality, logistics, and professionalism all matter"] },
   { section: "Sprint Week", title: "Communication", theme: "navy", eyebrow: "Communication", kicker: "WhatsApp is the primary channel", bullets: ["Use WhatsApp for live Sprint Week coordination", "Keep updates short, clear, and useful", "Escalate quickly when an issue affects founders, timing, rooms, partners, or safety", "Close the loop when something is resolved"] },
@@ -83,6 +87,28 @@ function useFullscreen() {
   return { isFullscreen, toggle };
 }
 
+function VisualPanel({ visual }: { visual: Visual }) {
+  if (visual === "brandTransition") {
+    return (
+      <div className="brand-visual" aria-label="TBDC brand transition visual">
+        <div className="old-mark">T</div>
+        <div className="orbit orbit-one" />
+        <div className="orbit orbit-two" />
+        <div className="transition-stack"><span /><span /><span /></div>
+        <div className="down-arrow">↓</div>
+        <div className="new-logo"><span />TBDC</div>
+      </div>
+    );
+  }
+  return (
+    <div className="katana-visual" aria-label="Katana principle visual">
+      <div className="mini-logo"><span />TBDC</div>
+      <div className="blade-outline" />
+      <p><strong>Our founders have built something that works.</strong><br /><span>We sharpen it here</span> so that it can scale globally.</p>
+    </div>
+  );
+}
+
 function MentimeterSlide({ slide }: { slide: Slide }) {
   const t = theme(slide.theme);
   const menti = slide.menti!;
@@ -102,14 +128,21 @@ function MentimeterSlide({ slide }: { slide: Slide }) {
 
 function StandardSlide({ slide }: { slide: Slide }) {
   const t = theme(slide.theme);
+  const content = (
+    <div className="copy-block">
+      {slide.eyebrow && <p className="eyebrow" style={{ color: colors.teal }}>{slide.eyebrow}</p>}
+      <h1>{slide.kicker || slide.title}</h1>
+      {slide.body && <p className="body" style={{ color: t.muted }}>{slide.body}</p>}
+      {slide.bullets && <ul className="bullets">{slide.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+      {slide.columns && <div className="cards">{slide.columns.map((item) => <article className="card" style={{ borderColor: t.border, background: t.card }} key={item.title}><h2>{item.title}</h2><p>{item.text}</p></article>)}</div>}
+    </div>
+  );
   return (
     <main className="slide" style={{ background: t.background, color: t.text }}>
-      <div className="slide-inner">
-        {slide.eyebrow && <p className="eyebrow" style={{ color: colors.teal }}>{slide.eyebrow}</p>}
-        <h1>{slide.kicker || slide.title}</h1>
-        {slide.body && <p className="body" style={{ color: t.muted }}>{slide.body}</p>}
-        {slide.bullets && <ul className="bullets">{slide.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
-        {slide.columns && <div className="cards">{slide.columns.map((item) => <article className="card" style={{ borderColor: t.border, background: t.card }} key={item.title}><h2>{item.title}</h2><p>{item.text}</p></article>)}</div>}
+      <div className={slide.visual ? "slide-inner two-up" : "slide-inner"}>
+        {slide.visual && slide.visualSide === "left" && <VisualPanel visual={slide.visual} />}
+        {content}
+        {slide.visual && slide.visualSide !== "left" && <VisualPanel visual={slide.visual} />}
       </div>
     </main>
   );
@@ -160,16 +193,40 @@ export default function App() {
         .slide { min-height: 100vh; display: grid; place-items: center; padding: clamp(38px, 6vw, 86px); position: relative; overflow: hidden; }
         .slide::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 82% 14%, rgba(0,168,142,.22), transparent 34%), linear-gradient(135deg, rgba(255,255,255,.055), transparent 45%); pointer-events: none; }
         .slide-inner { width: min(1220px, 100%); position: relative; z-index: 1; }
+        .two-up { display: grid; grid-template-columns: minmax(0, .92fr) minmax(320px, .78fr); gap: clamp(30px, 5vw, 72px); align-items: center; }
+        .copy-block { min-width: 0; }
         .eyebrow { margin: 0 0 18px; text-transform: uppercase; font-size: .9rem; font-weight: 900; letter-spacing: .16em; }
         h1 { font-size: clamp(3rem, 7vw, 7.4rem); line-height: .94; margin: 0; letter-spacing: 0; max-width: 1050px; }
+        .two-up h1 { font-size: clamp(2.8rem, 5.2vw, 5.6rem); }
         .body { font-size: clamp(1.25rem, 2vw, 2rem); line-height: 1.45; max-width: 920px; margin: 32px 0 0; }
+        .two-up .body { font-size: clamp(1.1rem, 1.45vw, 1.45rem); }
         .bullets { margin: 38px 0 0; padding: 0; display: grid; gap: 18px; max-width: 980px; list-style: none; }
+        .two-up .bullets { gap: 14px; margin-top: 24px; }
         .bullets li { font-size: clamp(1.25rem, 1.75vw, 1.85rem); line-height: 1.34; padding-left: 34px; position: relative; }
+        .two-up .bullets li { font-size: clamp(1rem, 1.25vw, 1.25rem); }
         .bullets li::before { content: ""; width: 12px; height: 12px; border-radius: 999px; background: ${colors.teal}; position: absolute; left: 0; top: .55em; }
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 18px; margin-top: 40px; }
         .card { border: 1px solid; border-radius: 8px; padding: 24px; min-height: 164px; }
         .card h2 { margin: 0 0 14px; font-size: clamp(1.15rem, 1.4vw, 1.5rem); text-transform: uppercase; color: ${colors.teal}; letter-spacing: .08em; }
         .card p { margin: 0; font-size: clamp(1rem, 1.2vw, 1.2rem); line-height: 1.45; }
+        .brand-visual { min-height: min(70vh, 640px); border-radius: 8px; background: linear-gradient(180deg, #f8f6f3 0%, #ebe8e2 36%, #0a0d14 66%, #05070b 100%); position: relative; overflow: hidden; display: grid; place-items: center; box-shadow: 0 24px 80px rgba(0,0,0,.35); }
+        .old-mark { position: absolute; top: 11%; width: 122px; height: 122px; border-radius: 999px; background: #34c987; color: #111827; display: grid; place-items: center; font-size: 5rem; font-weight: 950; }
+        .orbit { position: absolute; top: 8%; width: 178px; height: 178px; border-radius: 999px; border: 11px solid transparent; }
+        .orbit-one { border-top-color: #424955; border-right-color: #424955; transform: rotate(26deg); }
+        .orbit-two { border-bottom-color: #bfc2c7; border-left-color: #bfc2c7; transform: rotate(26deg); }
+        .transition-stack { position: absolute; top: 37%; display: grid; gap: 18px; justify-items: center; opacity: .72; }
+        .transition-stack span { width: 176px; height: 20px; border-radius: 999px; border: 2px solid rgba(255,255,255,.8); background: rgba(52,201,135,.26); filter: blur(.2px); }
+        .transition-stack span:nth-child(3) { width: 58px; height: 92px; border-radius: 0; background: linear-gradient(135deg, #2ad4ae, #35c875); transform: skew(-8deg); }
+        .down-arrow { position: absolute; top: 61%; color: rgba(255,255,255,.8); font-size: 2.3rem; }
+        .new-logo { position: absolute; bottom: 14%; display: flex; align-items: center; gap: 10px; color: white; font-size: clamp(3.6rem, 6vw, 6rem); font-weight: 950; letter-spacing: -.05em; text-shadow: 0 4px 20px rgba(0,0,0,.5); }
+        .new-logo span { width: 34px; height: 94px; background: linear-gradient(180deg, #2ce0c5, #24c86d); transform: skew(-4deg); display: inline-block; }
+        .brand-visual::after { content: ""; position: absolute; bottom: 8%; width: 58%; height: 26px; border-radius: 999px; background: rgba(0,168,142,.65); filter: blur(18px); }
+        .katana-visual { aspect-ratio: 4 / 3; width: min(100%, 570px); background: #000; border: 1px solid rgba(255,255,255,.15); position: relative; color: white; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.4); }
+        .mini-logo { position: absolute; top: 28px; left: 30px; display: flex; align-items: center; gap: 5px; font-size: 2rem; font-weight: 950; letter-spacing: -.05em; }
+        .mini-logo span { width: 10px; height: 31px; background: #26d4b0; transform: skew(-6deg); display: inline-block; }
+        .blade-outline { position: absolute; top: 42px; right: 90px; width: 122px; height: 78%; border: 1px solid rgba(255,255,255,.48); border-left-color: transparent; clip-path: polygon(0 24%, 100% 0, 100% 82%, 0 100%); }
+        .katana-visual p { position: absolute; left: 58px; right: 48px; top: 42%; margin: 0; font-size: clamp(1.15rem, 1.6vw, 1.65rem); line-height: 1.25; font-weight: 850; }
+        .katana-visual p span { color: #2fd18e; }
         .menti h1 { max-width: 1120px; font-size: clamp(2.4rem, 5.2vw, 5.8rem); }
         .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 38px; }
         .option { display: flex; gap: 16px; align-items: center; border: 1px solid; border-radius: 8px; padding: 20px 22px; font-size: clamp(1.05rem, 1.35vw, 1.35rem); font-weight: 800; min-height: 84px; }
@@ -186,7 +243,7 @@ export default function App() {
         .toc button { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 10px 12px; border: 1px solid rgba(255,255,255,.16); border-radius: 8px; background: rgba(255,255,255,.06); color: inherit; cursor: pointer; }
         .toc button.active { background: ${colors.teal}; color: ${colors.navy}; font-weight: 900; }
         .close { position: fixed; top: 24px; right: 24px; width: 46px; height: 46px; border-radius: 999px; border: 0; background: ${colors.teal}; color: ${colors.navy}; cursor: pointer; }
-        @media (max-width: 780px) { body { overflow: auto; } .slide { min-height: 100svh; padding: 30px 20px 92px; } .options { grid-template-columns: 1fr; } .controls { left: 12px; right: 12px; justify-content: center; } h1 { font-size: clamp(2.5rem, 14vw, 4.6rem); } }
+        @media (max-width: 780px) { body { overflow: auto; } .slide { min-height: 100svh; padding: 30px 20px 92px; } .two-up { grid-template-columns: 1fr; } .brand-visual { min-height: 440px; } .options { grid-template-columns: 1fr; } .controls { left: 12px; right: 12px; justify-content: center; } h1 { font-size: clamp(2.5rem, 14vw, 4.6rem); } }
       `}</style>
     </div>
   );
