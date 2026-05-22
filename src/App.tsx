@@ -28,7 +28,6 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-import brandRefresh04 from "./assets/brand-refresh/brand-refresh-04.webp";
 import astrikosLogo from "./assets/cohort/astrikos.png";
 import blunavLogo from "./assets/cohort/blunav.png";
 import sensoneoLogo from "./assets/cohort/sensoneo.png";
@@ -1238,7 +1237,10 @@ const slides: SlideDefinition[] = [
         title={<>Our new brand is <Accent>live</Accent></>}
         body="The new brand and website reflect how TBDC operates today: precision over volume, sharper choices, and clearer momentum."
       >
-        <VisualPanel src={brandRefresh04} alt="TBDC brand history slide showing the refreshed mark and archival material" />
+        <VisualPanel
+          src={`${import.meta.env.BASE_URL}TBDC Brand Transition.png`}
+          alt="TBDC brand transition visual"
+        />
       </SplitSlide>
     )
   },
@@ -1387,8 +1389,7 @@ const slides: SlideDefinition[] = [
           theme="warmWhite"
           items={[
             { text: "All week", detail: "Ekke Van Vliet, Investment Coordinator from the European Innovation Council" },
-            { text: "Monday", detail: "Evan Solomon, Minister of AI, for the Go EU announcement" },
-            { text: "Also Monday", detail: "Piyush Goyal joins the ecosystem conversation" },
+            { text: "Monday", detail: "Piyush Goyal joins the ecosystem conversation" },
             { text: "Throughout the week", detail: "Additional ecosystem and industry leaders" }
           ]}
         />
