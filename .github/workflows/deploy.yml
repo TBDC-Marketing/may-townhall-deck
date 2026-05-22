@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - devin/1778012447-may-townhall-deck
   workflow_dispatch:
 
 permissions:
